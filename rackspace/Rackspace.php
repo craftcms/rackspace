@@ -3,6 +3,7 @@
 namespace craft\plugins\rackspace;
 
 use Craft;
+use craft\app\base\Plugin;
 use craft\app\errors\VolumeException;
 
 /**
@@ -12,7 +13,7 @@ use craft\app\errors\VolumeException;
  * @since  3.0
  */
 
-class Rackspace extends \craft\app\base\Plugin
+class Rackspace extends Plugin
 {
     // Public Methods
     // =========================================================================
