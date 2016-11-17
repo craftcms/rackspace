@@ -9,18 +9,21 @@ use yii\base\UserException;
 use yii\web\Response;
 
 /**
- * Rackspace controller provides functionality to load container data for Rackspace.
+ * This controller provides functionality to load data from Rackspace.
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  3.0
  */
 
-class RackspaceController extends BaseController
+class DefaultController extends BaseController
 {
     /**
-     * Load container data
-     *
-     * This is used to, for example, load Amazon S3 bucket list or Rackspace Cloud Storage Containers.
+     * @var string
+     */
+    public $defaultAction = 'load-container-data';
+
+    /**
+     * Load container data for specified credentials and region.
      *
      * @return Response
      */

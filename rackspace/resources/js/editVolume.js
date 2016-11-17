@@ -20,7 +20,7 @@ $rackspaceRefreshContainersBtn.click(function () {
 		region: $rackspaceRegionSelect.val()
 	};
 
-	Craft.postActionRequest('rackspace/rackspace/load-container-data', data, function (response, textStatus) {
+	Craft.postActionRequest('rackspace', data, function (response, textStatus) {
 		$rackspaceRefreshContainersBtn.removeClass('disabled');
 		$rackspaceRefreshContainersSpinner.addClass('hidden');
 
