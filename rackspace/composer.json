@@ -1,0 +1,5 @@
+{
+    "require": {
+        "league/flysystem-rackspace": "1.0.5"
+    }
+}

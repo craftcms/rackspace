@@ -26,8 +26,7 @@ class Rackspace extends Plugin
 
         Craft::$app->getVolumes()->on('registerVolumeTypes', [$this, 'registerVolumeType']);
 
-        // TODO for now rely on Craft having all the needed stuff for us.
-        //require __DIR__.'/vendor/autoload.php';
+        require __DIR__.'/vendor/autoload.php';
     }
 
     /**
