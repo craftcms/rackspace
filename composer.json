@@ -1,5 +1,8 @@
 {
     "require": {
         "league/flysystem-rackspace": "1.0.5"
+    },
+    "config" : {
+        "vendor-dir": "src/vendor"
     }
 }
