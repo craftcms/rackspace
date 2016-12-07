@@ -1,8 +1,43 @@
 {
-    "require": {
-        "league/flysystem-rackspace": "1.0.5"
-    },
-    "config" : {
-        "vendor-dir": "src/vendor"
+  "name": "craftcms/rackspace",
+  "description": "Rackspace Cloud Files integration for Craft CMS",
+  "version": "1.0.0-beta.1",
+  "type": "craft-plugin",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "rackspace",
+    "cloud",
+    "files",
+    "openstack",
+    "asset",
+    "volume"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Pixel & Tonic",
+      "homepage": "https://pixelandtonic.com/"
     }
+  ],
+  "support": {
+    "email": "support@craftcms.com",
+    "issues": "https://github.com/craftcms/rackspace/issues?state=open",
+    "source": "https://github.com/craftcms/rackspace",
+    "docs": "https://github.com/craftcms/rackspace",
+    "rss": "https://github.com/craftcms/rackspace/commits/master.atom"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "league/flysystem-rackspace": "1.0.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "craft\\rackspace\\": "src/"
+    }
+  },
+  "extra": {
+    "name": "Rackspace Cloud Files"
+  }
 }

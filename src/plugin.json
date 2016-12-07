@@ -1,9 +1,0 @@
-{
-    "name": "Rackspace Volume",
-    "version": "1.0.0",
-    "schemaVersion": "1.0.0",
-    "developer": "Pixel & Tonic",
-    "developerUrl": "http://craftcms.com",
-    "description": "Adds the possibility to use Rackspace Cloud Storage with Assets.",
-    "class": "craft\\plugins\\rackspace\\Rackspace"
-}

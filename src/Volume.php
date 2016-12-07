@@ -4,24 +4,22 @@
  * @copyright Copyright (c) 2015 Pixel & Tonic, Inc.
  * @license   http://buildwithcraft.com/license
  */
-namespace craft\plugins\rackspace;
+namespace craft\rackspace;
 
 use Craft;
-use craft\app\base\Volume as BaseVolume;
 use League\Flysystem\Rackspace\RackspaceAdapter;
 use OpenCloud\Identity\Resource\Token;
 use OpenCloud\OpenStack;
-use OpenCloud\Rackspace as RackspaceClient;
+use OpenCloud\Rackspace;
 use yii\base\UserException;
 
-
 /**
- * MandrillAdaptor implements a Mandrill transport adapter into Craft’s mailer.
+ * Class Volume
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  3.0
  */
-class Volume extends BaseVolume
+class Volume extends \craft\base\Volume
 {
     /**
      * Cache key to use for caching purposes
@@ -36,59 +34,46 @@ class Volume extends BaseVolume
      */
     public static function displayName()
     {
-        return Craft::t('app', 'Rackspace Cloud Files');
+        return 'Rackspace Cloud Files';
     }
 
     // Properties
     // =========================================================================
 
     /**
-     * Whether this is a local source or not. Defaults to false.
-     *
-     * @var bool
+     * @var bool Whether this is a local source or not. Defaults to false.
      */
     protected $isSourceLocal = false;
 
     /**
-     * Set to true if the Adapter expects folder names to have trailing slashes
-     *
-     * @var bool
+     * @var bool Set to true if the Adapter expects folder names to have trailing slashes
      */
     protected $foldersHaveTrailingSlashes = false;
 
     /**
-     * Path to the root of this sources local folder.
-     *
-     * @var string
+     * @var string Path to the root of this sources local folder.
      */
-    public $subfolder = "";
-    /**
-     * Rackspace username
-     *
-     * @var string
-     */
-    public $username = "";
+    public $subfolder = '';
 
     /**
-     * Rackspace API key
-     *
-     * @var string
+     * @var string Rackspace username
      */
-    public $apiKey = "";
+    public $username = '';
 
     /**
-     * Container to use
-     *
-     * @var string
+     * @var string Rackspace API key
      */
-    public $container = "";
+    public $apiKey = '';
 
     /**
-     * Region to use
-     *
-     * @var string
+     * @var string Container to use
      */
-    public $region = "";
+    public $container = '';
+
+    /**
+     * @var string Region to use
+     */
+    public $region = '';
 
     // Public Methods
     // =========================================================================
@@ -111,10 +96,9 @@ class Volume extends BaseVolume
      */
     public function getSettingsHtml()
     {
-        return Craft::$app->getView()->renderTemplate('rackspace/volumeSettings',
-            [
-                'volume' => $this
-            ]);
+        return Craft::$app->getView()->renderTemplate('rackspace/volumeSettings', [
+            'volume' => $this
+        ]);
     }
 
     /**
@@ -197,7 +181,7 @@ class Volume extends BaseVolume
     {
         $config = ['username' => $username, 'apiKey' => $apiKey];
 
-        $client = new RackspaceClient(RackspaceClient::US_IDENTITY_ENDPOINT, $config);
+        $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, $config);
 
         // Check if we have a cached token
         $tokenKey = static::CACHE_KEY_PREFIX.md5($username.$apiKey);

@@ -1,10 +1,10 @@
 <?php
 
-namespace craft\plugins\rackspace\controllers;
+namespace craft\rackspace\controllers;
 
 use Craft;
-use craft\app\web\Controller as BaseController;
-use craft\plugins\rackspace\Volume;
+use craft\web\Controller as BaseController;
+use craft\rackspace\Volume;
 use yii\base\UserException;
 use yii\web\Response;
 

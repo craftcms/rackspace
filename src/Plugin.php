@@ -1,22 +1,22 @@
 <?php
 
-namespace craft\plugins\rackspace;
+namespace craft\rackspace;
 
 use Craft;
-use craft\app\base\Plugin;
-use craft\app\errors\VolumeException;
+use craft\errors\VolumeException;
+use craft\events\RegisterComponentTypesEvent;
 
 /**
- * Plugin represents the Rackspace volume plugin.
+ * Plugin represents the Rackspace Cloud Files volume plugin.
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  3.0
  */
-
-class Rackspace extends Plugin
+class Plugin extends \craft\base\Plugin
 {
     // Public Methods
     // =========================================================================
+
     /**
      * @inheritdoc
      */
@@ -24,21 +24,9 @@ class Rackspace extends Plugin
     {
         parent::init();
 
-        Craft::$app->getVolumes()->on('registerVolumeTypes', [$this, 'registerVolumeType']);
-
-        require __DIR__.'/vendor/autoload.php';
-    }
-
-    /**
-     * Register the Volume Types
-     *
-     * @return void
-     */
-    public function registerVolumeType($event)
-    {
-        $event->types = array_merge($event->types, [
-            Volume::className(),
-        ]);
+        Craft::$app->getVolumes()->on('registerVolumeTypes', function(RegisterComponentTypesEvent $event) {
+            $event->types[] = Volume::class;
+        });
     }
 
     /**
@@ -53,7 +41,8 @@ class Rackspace extends Plugin
         $allVolumes = $volumes->getAllVolumes();
 
         foreach ($allVolumes as $volume) {
-            if ($volume->className() == 'craft\app\volumes\MissingVolume' && $volume->expectedType == 'craft\app\volumes\Rackspace') {
+            /** @var Volume $volume */
+            if ($volume->className() == 'craft\volumes\MissingVolume' && $volume->expectedType == 'craft\volumes\Rackspace') {
                 /** @var Volume $convertedVolume */
                 $convertedVolume = $volumes->createVolume([
                     'id' => $volume->id,
@@ -71,7 +60,5 @@ class Rackspace extends Plugin
                 }
             }
         }
-
     }
-
 }
