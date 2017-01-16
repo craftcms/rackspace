@@ -32,7 +32,7 @@ class Volume extends \craft\base\Volume
     /**
      * @inheritdoc
      */
-    public static function displayName()
+    public static function displayName(): string
     {
         return 'Rackspace Cloud Files';
     }
