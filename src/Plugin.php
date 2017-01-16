@@ -5,6 +5,7 @@ namespace craft\rackspace;
 use Craft;
 use craft\errors\VolumeException;
 use craft\events\RegisterComponentTypesEvent;
+use craft\volumes\MissingVolume;
 
 /**
  * Plugin represents the Rackspace Cloud Files volume plugin.
@@ -42,7 +43,7 @@ class Plugin extends \craft\base\Plugin
 
         foreach ($allVolumes as $volume) {
             /** @var Volume $volume */
-            if ($volume->className() == 'craft\volumes\MissingVolume' && $volume->expectedType == 'craft\volumes\Rackspace') {
+            if ($volume instanceof MissingVolume && $volume->expectedType === 'craft\volumes\Rackspace') {
                 /** @var Volume $convertedVolume */
                 $convertedVolume = $volumes->createVolume([
                     'id' => $volume->id,

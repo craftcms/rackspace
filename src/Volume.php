@@ -16,6 +16,9 @@ use yii\base\UserException;
 /**
  * Class Volume
  *
+ * @property null|string $settingsHtml
+ * @property string      $rootUrl
+ *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  3.0
  */
@@ -46,11 +49,6 @@ class Volume extends \craft\base\Volume
     protected $isSourceLocal = false;
 
     /**
-     * @var bool Set to true if the Adapter expects folder names to have trailing slashes
-     */
-    protected $foldersHaveTrailingSlashes = false;
-
-    /**
      * @var string Path to the root of this sources local folder.
      */
     public $subfolder = '';
@@ -77,6 +75,16 @@ class Volume extends \craft\base\Volume
 
     // Public Methods
     // =========================================================================
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        parent::init();
+
+        $this->foldersHaveTrailingSlashes = false;
+    }
 
     /**
      * @inheritdoc

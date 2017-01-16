@@ -18,9 +18,13 @@ use yii\web\Response;
 class DefaultController extends BaseController
 {
     /**
-     * @var string
+     * @inheritdoc
      */
-    public $defaultAction = 'load-container-data';
+    public function init()
+    {
+        parent::init();
+        $this->defaultAction = 'load-container-data';
+    }
 
     /**
      * Load container data for specified credentials and region.
