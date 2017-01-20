@@ -8,9 +8,10 @@
 namespace craft\rackspace\migrations;
 
 use Craft;
-use craft\base\Volume;
+use craft\base\Volume as BaseVolume;
 use craft\db\Migration;
 use craft\errors\VolumeException;
+use craft\rackspace\Volume;
 use craft\volumes\MissingVolume;
 
 /**
@@ -92,7 +93,7 @@ class Install extends Migration
     private function _convertVolumes()
     {
         $volumesService = Craft::$app->getVolumes();
-        /** @var Volume[] $allVolumes */
+        /** @var BaseVolume[] $allVolumes */
         $allVolumes = $volumesService->getAllVolumes();
 
         foreach ($allVolumes as $volume) {
