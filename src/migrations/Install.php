@@ -29,7 +29,68 @@ class Install extends Migration
      */
     public function safeUp()
     {
+        // Create the rackspaceaccess table
+        $this->_createRackspaceAccessTable();
+
         // Convert any built-in Rackspace volumes to ours
+        $this->_convertVolumes();
+
+        return true;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function safeDown()
+    {
+        // Drop the rackspaceaccess table, but keep the volumes
+        $this->dropTable('{{%rackspaceaccess}}');
+
+        return true;
+    }
+
+    // Private Methods
+    // =========================================================================
+
+    /**
+     * Creates the rackspaceaccess table if it doesn't already exist
+     *
+     * @return void
+     */
+    private function _createRackspaceAccessTable()
+    {
+        $table = '{{%rackspaceaccess}}';
+
+        if ($this->db->tableExists($table)) {
+            return;
+        }
+
+        $this->createTable($table, [
+            'id' => $this->primaryKey(),
+            'connectionKey' => $this->string()->notNull(),
+            'token' => $this->string()->notNull(),
+            'storageUrl' => $this->string()->notNull(),
+            'cdnUrl' => $this->string()->notNull(),
+            'dateCreated' => $this->dateTime()->notNull(),
+            'dateUpdated' => $this->dateTime()->notNull(),
+            'uid' => $this->uid(),
+        ]);
+
+        $this->createIndex(
+            $this->db->getIndexName($table, 'connectionKey', true),
+            $table,
+            'connectionKey',
+            true);
+    }
+
+    /**
+     * Converts any old school Rackspace volumes to this one
+     *
+     * @return void
+     * @throws VolumeException if the new volume couldn't be saved
+     */
+    private function _convertVolumes()
+    {
         $volumesService = Craft::$app->getVolumes();
         /** @var Volume[] $allVolumes */
         $allVolumes = $volumesService->getAllVolumes();
@@ -53,15 +114,5 @@ class Install extends Migration
                 }
             }
         }
-
-        return true;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function safeDown()
-    {
-        return false;
     }
 }
