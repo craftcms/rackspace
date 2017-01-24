@@ -38,6 +38,7 @@
     }
   },
   "extra": {
-    "name": "Rackspace Cloud Files"
+    "name": "Rackspace Cloud Files",
+    "handle": "rackspace"
   }
 }
