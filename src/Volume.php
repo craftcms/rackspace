@@ -8,6 +8,7 @@ namespace craft\rackspace;
 
 use Craft;
 use League\Flysystem\Rackspace\RackspaceAdapter;
+use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Identity\Resource\Token;
 use OpenCloud\OpenStack;
 use OpenCloud\Rackspace;
@@ -186,7 +187,10 @@ class Volume extends \craft\base\Volume
         // Check if we have a cached token
         $tokenKey = static::CACHE_KEY_PREFIX.md5($username.$apiKey);
         if (Craft::$app->cache->exists($tokenKey)) {
-            $client->importCredentials(unserialize(Craft::$app->cache->get($tokenKey)));
+            $credentials = unserialize(Craft::$app->cache->get($tokenKey), [
+                'allowed_classes' => [Catalog::class]
+            ]);
+            $client->importCredentials($credentials);
         }
 
         /** @var Token $token */
