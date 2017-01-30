@@ -4,15 +4,12 @@
   "version": "1.0.0-beta.1",
   "type": "craft-plugin",
   "keywords": [
-    "craft",
     "cms",
     "craftcms",
     "rackspace",
-    "cloud",
-    "files",
+    "opencloud",
     "openstack",
-    "asset",
-    "volume"
+    "yii2"
   ],
   "license": "MIT",
   "authors": [
@@ -28,7 +25,6 @@
     "docs": "https://github.com/craftcms/rackspace",
     "rss": "https://github.com/craftcms/rackspace/commits/master.atom"
   },
-  "minimum-stability": "stable",
   "require": {
     "league/flysystem-rackspace": "1.0.5"
   },
@@ -39,6 +35,8 @@
   },
   "extra": {
     "name": "Rackspace Cloud Files",
-    "handle": "rackspace"
+    "handle": "rackspace",
+    "changelogUrl": "https://raw.githubusercontent.com/craftcms/rackspace/master/CHANGELOG.md",
+    "downloadUrl": "https://github.com/craftcms/rackspace/archive/master.zip"
   }
 }
