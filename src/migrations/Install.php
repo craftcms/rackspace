@@ -10,7 +10,9 @@ namespace craft\rackspace\migrations;
 use Craft;
 use craft\base\Volume as BaseVolume;
 use craft\db\Migration;
+use craft\db\Query;
 use craft\errors\VolumeException;
+use craft\helpers\Json;
 use craft\rackspace\Volume;
 use craft\volumes\MissingVolume;
 
@@ -30,8 +32,8 @@ class Install extends Migration
      */
     public function safeUp()
     {
-        // Create the rackspaceaccess table
-        $this->_createRackspaceAccessTable();
+        // Drop the rackspaceaccess table if it exists
+        $this->_dropRackspaceAccessTable();
 
         // Convert any built-in Rackspace volumes to ours
         $this->_convertVolumes();
@@ -39,50 +41,9 @@ class Install extends Migration
         return true;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function safeDown()
-    {
-        // Drop the rackspaceaccess table, but keep the volumes
-        $this->dropTable('{{%rackspaceaccess}}');
-
-        return true;
-    }
-
     // Private Methods
     // =========================================================================
 
-    /**
-     * Creates the rackspaceaccess table if it doesn't already exist
-     *
-     * @return void
-     */
-    private function _createRackspaceAccessTable()
-    {
-        $table = '{{%rackspaceaccess}}';
-
-        if ($this->db->tableExists($table)) {
-            return;
-        }
-
-        $this->createTable($table, [
-            'id' => $this->primaryKey(),
-            'connectionKey' => $this->string()->notNull(),
-            'token' => $this->string()->notNull(),
-            'storageUrl' => $this->string()->notNull(),
-            'cdnUrl' => $this->string()->notNull(),
-            'dateCreated' => $this->dateTime()->notNull(),
-            'dateUpdated' => $this->dateTime()->notNull(),
-            'uid' => $this->uid(),
-        ]);
-
-        $this->createIndex(
-            $this->db->getIndexName($table, 'connectionKey', true),
-            $table,
-            'connectionKey',
-            true);
-    }
 
     /**
      * Converts any old school Rackspace volumes to this one
@@ -92,28 +53,53 @@ class Install extends Migration
      */
     private function _convertVolumes()
     {
-        $volumesService = Craft::$app->getVolumes();
-        /** @var BaseVolume[] $allVolumes */
-        $allVolumes = $volumesService->getAllVolumes();
+        $volumes = (new Query())
+            ->select([
+                'id',
+                'fieldLayoutId',
+                'settings',
+            ])
+            ->where(['type' => 'craft\volumes\Rackspace'])
+            ->from(['{{%volumes}}'])
+            ->all();
 
-        foreach ($allVolumes as $volume) {
-            if ($volume instanceof MissingVolume && $volume->expectedType === 'craft\volumes\Rackspace') {
-                /** @var Volume $convertedVolume */
-                $convertedVolume = $volumesService->createVolume([
-                    'id' => $volume->id,
+        $dbConnection = Craft::$app->getDb();
+
+        foreach ($volumes as $volume) {
+
+            $settings = Json::decode($volume['settings']);
+
+            if ($settings !== null) {
+                $hasUrls = !empty($settings['publicURLs']);
+                $url = ($hasUrls && !empty($settings['urlPrefix'])) ? $settings['urlPrefix'] : null;
+                unset($settings['publicURLs'], $settings['urlPrefix']);
+
+                $values = [
                     'type' => Volume::class,
-                    'name' => $volume->name,
-                    'handle' => $volume->handle,
-                    'hasUrls' => $volume->hasUrls,
-                    'url' => $volume->url,
-                    'settings' => $volume->settings
-                ]);
-                $convertedVolume->setFieldLayout($volume->getFieldLayout());
+                    'hasUrls' => $hasUrls,
+                    'url' => $url,
+                    'settings' => Json::encode($settings)
+                ];
 
-                if (!$volumesService->saveVolume($convertedVolume)) {
-                    throw new VolumeException('Unable to convert the legacy “{volume}” Rackspace volume.', ['volume' => $volume->name]);
-                }
+                $dbConnection->createCommand()
+                    ->update('{{%volumes}}', $values, ['id' => $volume['id']])
+                    ->execute();
             }
         }
     }
+
+    /**
+     * Drops the obsolete rackspaceaccess table if it exists
+     *
+     * @return void
+     */
+    private function _dropRackspaceAccessTable()
+    {
+        $table = '{{%rackspaceaccess}}';
+
+        if ($this->db->tableExists($table)) {
+            $this->dropTable('{{%rackspaceaccess}}');
+        }
+    }
+
 }
