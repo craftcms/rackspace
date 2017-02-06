@@ -3,7 +3,7 @@ Rackspace Cloud Files for Craft CMS
 
 This plugin provides an [Rackspace Cloud Files](https://www.rackspace.com/cloud/files) integration for [Craft CMS](https://craftcms.com/).
 
-**Note: Rackspace is no longer maintaining their PHP OpenCloud SDK, so you should probably find a different asset storage provider and not use this plugin.**
+**:warning: Rackspace is no longer maintaining their PHP OpenCloud SDK, so you should probably find a different asset storage provider and not use this plugin.**
 
 
 ## Requirements
