@@ -26,10 +26,6 @@ class RackspaceBundle extends AssetBundle
             CpAsset::class,
         ];
 
-        $this->css = [
-            'image_editor.css',
-        ];
-
         $this->js = [
             'js/editVolume.js',
         ];
