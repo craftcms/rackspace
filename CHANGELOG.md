@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## Unreleased
+## 1.0.1 - 2017-02-17
 
 ### Fixed
 - Fixed a bug where the asset bundle was trying to load a non-existing CSS file.
