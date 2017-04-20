@@ -153,6 +153,90 @@ class Volume extends \craft\base\Volume
         return rtrim(rtrim($this->url, '/').'/'.$this->subfolder, '/').'/';
     }
 
+
+    // Overrides to ensure whitespaces and non-ASCII characters work.
+    // =========================================================================
+
+    /**
+     * @inheritdoc
+     */
+    public function getFileMetadata(string $uri): array
+    {
+        return parent::getFileMetadata(urlencode($uri));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function createFileByStream(string $path, $stream, array $config): bool
+    {
+        return parent::createFileByStream(urlencode($path), $stream, $config);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function updateFileByStream(string $path, $stream, array $config): bool
+    {
+        return parent::updateFileByStream(urlencode($path), $stream, $config);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function createDir(string $path): bool
+    {
+        return parent::createDir(urlencode($path));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function fileExists(string $path): bool
+    {
+        return parent::fileExists(urlencode($path));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function folderExists(string $path): bool
+    {
+        return parent::folderExists(urlencode($path));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function renameFile(string $path, string $newPath): bool
+    {
+        return parent::renameFile(urlencode($path), urlencode($newPath));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function deleteFile(string $path): bool
+    {
+        return parent::deleteFile(urlencode($path));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function copyFile(string $path, string $newPath): bool
+    {
+        return parent::copyFile(urlencode($path), urlencode($newPath));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getFileStream(string $uriPath)
+    {
+        return parent::getFileStream(urlencode($uriPath));
+    }
+
     // Protected Methods
     // =========================================================================
 
