@@ -26,7 +26,7 @@
     "rss": "https://github.com/craftcms/rackspace/commits/master.atom"
   },
   "require": {
-    "craftcms/cms": "~3.0.0-beta.1",
+    "craftcms/cms": "~3.0.0-beta.24",
     "league/flysystem-rackspace": "1.0.5"
   },
   "autoload": {

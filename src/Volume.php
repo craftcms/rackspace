@@ -8,6 +8,7 @@
 namespace craft\rackspace;
 
 use Craft;
+use craft\flysystem\FlysystemVolume;
 use League\Flysystem\Rackspace\RackspaceAdapter;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Service\CatalogItem;
@@ -25,7 +26,7 @@ use yii\base\UserException;
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  3.0
  */
-class Volume extends \craft\base\Volume
+class Volume extends FlysystemVolume
 {
     /**
      * Cache key to use for caching purposes
@@ -169,25 +170,25 @@ class Volume extends \craft\base\Volume
     /**
      * @inheritdoc
      */
-    public function createFileByStream(string $path, $stream, array $config): bool
+    public function createFileByStream(string $path, $stream, array $config)
     {
-        return parent::createFileByStream(urlencode($path), $stream, $config);
+        parent::createFileByStream(urlencode($path), $stream, $config);
     }
 
     /**
      * @inheritdoc
      */
-    public function updateFileByStream(string $path, $stream, array $config): bool
+    public function updateFileByStream(string $path, $stream, array $config)
     {
-        return parent::updateFileByStream(urlencode($path), $stream, $config);
+        parent::updateFileByStream(urlencode($path), $stream, $config);
     }
 
     /**
      * @inheritdoc
      */
-    public function createDir(string $path): bool
+    public function createDir(string $path)
     {
-        return parent::createDir(urlencode($path));
+        parent::createDir(urlencode($path));
     }
 
     /**
@@ -209,25 +210,25 @@ class Volume extends \craft\base\Volume
     /**
      * @inheritdoc
      */
-    public function renameFile(string $path, string $newPath): bool
+    public function renameFile(string $path, string $newPath)
     {
-        return parent::renameFile(urlencode($path), urlencode($newPath));
+        parent::renameFile(urlencode($path), urlencode($newPath));
     }
 
     /**
      * @inheritdoc
      */
-    public function deleteFile(string $path): bool
+    public function deleteFile(string $path)
     {
-        return parent::deleteFile(urlencode($path));
+        parent::deleteFile(urlencode($path));
     }
 
     /**
      * @inheritdoc
      */
-    public function copyFile(string $path, string $newPath): bool
+    public function copyFile(string $path, string $newPath)
     {
-        return parent::copyFile(urlencode($path), urlencode($newPath));
+        parent::copyFile(urlencode($path), urlencode($newPath));
     }
 
     /**
