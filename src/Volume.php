@@ -8,7 +8,7 @@
 namespace craft\rackspace;
 
 use Craft;
-use craft\flysystem\FlysystemVolume;
+use craft\base\FlysystemVolume;
 use League\Flysystem\Rackspace\RackspaceAdapter;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Service\CatalogItem;
