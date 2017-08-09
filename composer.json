@@ -34,12 +34,6 @@
       "craft\\rackspace\\": "src/"
     }
   },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    }
-  ],
   "extra": {
     "name": "Rackspace Cloud Files",
     "handle": "rackspace",
