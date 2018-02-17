@@ -10,7 +10,7 @@ use yii\base\Event;
  * Plugin represents the Rackspace Cloud Files volume plugin.
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
 class Plugin extends \craft\base\Plugin
 {

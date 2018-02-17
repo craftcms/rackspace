@@ -1,26 +1,24 @@
 <?php
 /**
- * @link      https://craftcms.com/
+ * @link https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   https://craftcms.github.io/license/
+ * @license https://craftcms.github.io/license/
  */
 
 namespace craft\rackspace\migrations;
 
 use Craft;
-use craft\base\Volume as BaseVolume;
 use craft\db\Migration;
 use craft\db\Query;
 use craft\errors\VolumeException;
 use craft\helpers\Json;
 use craft\rackspace\Volume;
-use craft\volumes\MissingVolume;
 
 /**
  * Installation Migration
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
 class Install extends Migration
 {

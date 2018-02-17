@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://craftcms.com/
+ * @link https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   MIT
+ * @license MIT
  */
 
 namespace craft\rackspace;
@@ -21,10 +21,9 @@ use yii\base\UserException;
  * Class Volume
  *
  * @property null|string $settingsHtml
- * @property string      $rootUrl
- *
+ * @property string $rootUrl
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
 class Volume extends FlysystemVolume
 {
@@ -103,7 +102,6 @@ class Volume extends FlysystemVolume
 
     /**
      * @inheritdoc
-     *
      * @return string|null
      */
     public function getSettingsHtml()
@@ -119,7 +117,6 @@ class Volume extends FlysystemVolume
      * @param $username
      * @param $apiKey
      * @param $region
-     *
      * @throws UserException
      * @return array
      */
@@ -247,7 +244,6 @@ class Volume extends FlysystemVolume
 
     /**
      * @inheritdoc
-     *
      * @return RackspaceAdapter
      */
     protected function createAdapter()
@@ -265,7 +261,6 @@ class Volume extends FlysystemVolume
      *
      * @param $username
      * @param $apiKey
-     *
      * @return OpenStack
      */
     protected static function client($username, $apiKey)

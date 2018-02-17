@@ -3,8 +3,8 @@
 namespace craft\rackspace\controllers;
 
 use Craft;
-use craft\web\Controller as BaseController;
 use craft\rackspace\Volume;
+use craft\web\Controller as BaseController;
 use yii\base\UserException;
 use yii\web\Response;
 
@@ -12,9 +12,8 @@ use yii\web\Response;
  * This controller provides functionality to load data from Rackspace.
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
-
 class DefaultController extends BaseController
 {
     /**
