@@ -1,5 +1,4 @@
-Rackspace Cloud Files for Craft CMS
-===================================
+# Rackspace Cloud Files for Craft CMS
 
 This plugin provides an [Rackspace Cloud Files](https://www.rackspace.com/cloud/files) integration for [Craft CMS](https://craftcms.com/).
 

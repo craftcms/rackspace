@@ -1,5 +1,4 @@
-Changelog
-=========
+# Release Notes for Rackspace Cloud Files for Craft CMS
 
 ## 1.0.4 - 2018-01-02
 
