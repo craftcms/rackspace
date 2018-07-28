@@ -1,5 +1,11 @@
 # Release Notes for Rackspace Cloud Files for Craft CMS
 
+## 1.0.5 - 2018-04-30
+**:warning: The "Subfolder" setting on Rackspace volumes was previously ignored. If you have this set, you'll need to manually move your files into the expected location in your Rackspace containers.**
+
+### Fixed
+- Fixed a bug where the subfolder settings was being ignored. ([#1](https://github.com/craftcms/rackspace/issues/1))
+
 ## 1.0.4 - 2018-01-02
 
 ### Added
