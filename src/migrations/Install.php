@@ -13,12 +13,13 @@ use craft\db\Query;
 use craft\errors\VolumeException;
 use craft\helpers\Json;
 use craft\rackspace\Volume;
+use craft\services\Volumes;
 
 /**
  * Installation Migration
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since 3.0
+ * @since 1.0
  */
 class Install extends Migration
 {
@@ -51,39 +52,32 @@ class Install extends Migration
      */
     private function _convertVolumes()
     {
-        $volumes = (new Query())
-            ->select([
-                'id',
-                'fieldLayoutId',
-                'settings',
-            ])
-            ->where(['type' => 'craft\volumes\Rackspace'])
-            ->from(['{{%volumes}}'])
-            ->all();
+        $projectConfig = Craft::$app->getProjectConfig();
+        $projectConfig->muteEvents = true;
 
-        $dbConnection = Craft::$app->getDb();
+        $volumes = $projectConfig->get(Volumes::CONFIG_VOLUME_KEY) ?? [];
 
-        foreach ($volumes as $volume) {
+        foreach ($volumes as $uid => &$volume) {
+            if ($volume['type'] === Volume::class && isset($volume['settings']) && is_array($volume['settings'])) {
+                $settings = $volume['settings'];
 
-            $settings = Json::decode($volume['settings']);
-
-            if ($settings !== null) {
-                $hasUrls = !empty($settings['publicURLs']);
+                $hasUrls = !empty($volume['hasUrls']);
                 $url = ($hasUrls && !empty($settings['urlPrefix'])) ? $settings['urlPrefix'] : null;
-                unset($settings['publicURLs'], $settings['urlPrefix']);
+                unset($settings['urlPrefix'], $settings['location']);
 
-                $values = [
-                    'type' => Volume::class,
-                    'hasUrls' => $hasUrls,
+                $volume['url'] = $url;
+                $volume['settings'] = $settings;
+
+                $this->update('{{%volumes}}', [
+                    'settings' => Json::encode($settings),
                     'url' => $url,
-                    'settings' => Json::encode($settings)
-                ];
+                ], ['uid' => $uid]);
 
-                $dbConnection->createCommand()
-                    ->update('{{%volumes}}', $values, ['id' => $volume['id']])
-                    ->execute();
+                $projectConfig->set(Volumes::CONFIG_VOLUME_KEY . '.' . $uid, $volume);
             }
         }
+
+        $projectConfig->muteEvents = false;
     }
 
     /**
@@ -93,11 +87,6 @@ class Install extends Migration
      */
     private function _dropRackspaceAccessTable()
     {
-        $table = '{{%rackspaceaccess}}';
-
-        if ($this->db->tableExists($table)) {
-            $this->dropTable('{{%rackspaceaccess}}');
-        }
+        $this->dropTableIfExists('{{%rackspaceaccess}}');
     }
-
 }
