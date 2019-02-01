@@ -1,6 +1,6 @@
 # Release Notes for Rackspace Cloud Files for Craft CMS
 
-## Unreleased
+## 1.1.0 - 2019-02-01
 
 ### Fixed
 - Fixed an error that occurred when updating from Craft 2 to Craft 3.1 when using this plugin.
