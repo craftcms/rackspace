@@ -6,7 +6,7 @@ This plugin provides an [Rackspace Cloud Files](https://www.rackspace.com/cloud/
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-RC4 or later.
+This plugin requires Craft CMS 3.1 or later.
 
 ## Installation
 
