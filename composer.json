@@ -22,7 +22,7 @@
     "email": "support@craftcms.com",
     "issues": "https://github.com/craftcms/rackspace/issues?state=open",
     "source": "https://github.com/craftcms/rackspace",
-    "docs": "https://github.com/craftcms/rackspace",
+    "docs": "https://github.com/craftcms/rackspace/blob/master/README.md",
     "rss": "https://github.com/craftcms/rackspace/commits/master.atom"
   },
   "require": {
@@ -37,7 +37,6 @@
   "extra": {
     "name": "Rackspace Cloud Files",
     "handle": "rackspace",
-    "changelogUrl": "https://raw.githubusercontent.com/craftcms/rackspace/master/CHANGELOG.md",
-    "downloadUrl": "https://github.com/craftcms/rackspace/archive/master.zip"
+    "documentationUrl": "https://github.com/craftcms/rackspace/blob/master/README.md"
   }
 }
