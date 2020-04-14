@@ -1,19 +1,21 @@
 {% import "_includes/forms" as forms %}
 
-{{ forms.textField({
+{{ forms.autosuggestField({
     label: "Username"|t('rackspace'),
     id: 'username',
     name: 'username',
+    suggestEnvVars: true,
     value: volume.username,
     errors: volume.getErrors('username'),
     class: 'rackspace-username',
     required: true
 }) }}
 
-{{ forms.textField({
+{{ forms.autosuggestField({
     label: "API Key"|t('rackspace'),
     id: 'apiKey',
     name: 'apiKey',
+    suggestEnvVars: true,
     value: volume.apiKey,
     errors: volume.getErrors('apiKey'),
     class: 'racskspace-api-key',
