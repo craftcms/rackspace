@@ -265,7 +265,10 @@ class Volume extends FlysystemVolume
      */
     protected static function client($username, $apiKey)
     {
-        $config = ['username' => $username, 'apiKey' => $apiKey];
+        $config = [
+        	'username' => Craft::parseEnv($username),
+	        'apiKey' => Craft::parseEnv($apiKey)
+        ];
 
         $client = new Rackspace(Rackspace::US_IDENTITY_ENDPOINT, $config);
 
